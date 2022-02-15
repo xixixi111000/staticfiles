@@ -18,8 +18,8 @@ exports.handler = async (event, context, cb) => {
       }
       return {
         headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
+          'Access-Control-Allow-Origin': '*',
+        },
         statusCode: 200,
         body: JSON.stringify(product),
       }
@@ -34,14 +34,14 @@ exports.handler = async (event, context, cb) => {
     const { records } = await airtable.list()
     const products = records.map((product) => {
       const { id } = product
-      const { name, image, price } = product.fields
-      const url = image[0].url
-      return { id, name, url, price }
+      const { name, images,price, colors, company, description, category, shipping, featured } = product.fields
+      const image = images[0].url
+      return { id, name, price,image, featured,colors, company, description, category, shipping, }
     })
     return {
       headers: {
       'Access-Control-Allow-Origin': '*',
-    },
+      },
       statusCode: 200,
       body: JSON.stringify(products),
     }
